@@ -1,6 +1,8 @@
-# Tag Process
+# Danbooru Tag Process
 
-这是一个用于处理标签（Tag）数据的 Python 工具，旨在清洗、过滤并整合标签别名信息。
+在 [Releases](https://github.com/0nikod/danbooru_tag_process/releases/latest) 中找到处理后的 Tags。
+
+这是一个用于处理 Danbooru Tag 数据的 Python 工具，旨在清洗、过滤并整合标签别名信息。
 
 ## 功能
 
