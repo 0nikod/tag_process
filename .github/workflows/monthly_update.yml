@@ -1,6 +1,7 @@
 name: Monthly Data Update
 
 on:
+  push:
   schedule:
     - cron: '0 0 1 * *' # Run at 00:00 on day-of-month 1.
   workflow_dispatch:
