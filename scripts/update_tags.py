@@ -10,15 +10,31 @@ REPO_ID = "deepghs/site_tags"
 TAGS_FILE = "tags.parquet"
 ALIAS_FILE = "tag_alias.csv"
 
+from huggingface_hub import hf_hub_download, list_repo_commits, list_repo_files
+
+REPO_ID = "deepghs/site_tags"
+# ...
+
 def get_latest_commit_sha(repo_id):
-    commits = list_repo_commits(repo_id=repo_id)
+    # Fix: Specify repo_type="dataset"
+    commits = list_repo_commits(repo_id=repo_id, repo_type="dataset")
     if commits:
         return commits[0].commit_id
     return None
 
 def download_data(repo_id, filename):
     print(f"Downloading {filename} from {repo_id}...")
-    return hf_hub_download(repo_id=repo_id, filename=filename, repo_type="dataset", local_dir=".")
+    try:
+        return hf_hub_download(repo_id=repo_id, filename=filename, repo_type="dataset", local_dir=".")
+    except Exception as e:
+        print(f"Failed to download {filename}. Error: {e}")
+        print("Listing available files in repo to help debug...")
+        try:
+            files = list_repo_files(repo_id=repo_id, repo_type="dataset")
+            print(f"Files in {repo_id}: {files}")
+        except Exception as list_e:
+            print(f"Could not list files: {list_e}")
+        raise e
 
 def main():
     parser = argparse.ArgumentParser()
